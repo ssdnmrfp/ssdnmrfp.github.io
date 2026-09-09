@@ -1,0 +1,2573 @@
+:root {
+    --bg-color: #f3f0e7; /* Couleur papier crème */
+    --text-color: #1a1a1a;
+    --accent-color: #c0392b; /* Rouge peinture */
+    --font-main: 'Playfair Display', serif;
+    --font-script: 'Pinyon Script', cursive;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    cursor: none; /* On cache le curseur par défaut */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    overflow-x: hidden; /* Scroll géré par JS */
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Texture de fond (Grain) */
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.05;
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+}
+
+/* Loader */
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    color: #fff;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-script);
+    font-size: 2rem;
+}
+
+/* Wrapper Horizontal */
+.wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 700%; /* 5 sections de 100vw */
+    height: 100vh;
+}
+
+.panel {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 5vw;
+}
+
+/* Hero Section */
+.hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: 8vw;
+    text-transform: uppercase;
+    line-height: 0.9;
+    mix-blend-mode: exclusion;
+}
+
+.hero-title .line {
+    display: block;
+    overflow: hidden; /* Pour l'animation de révélation */
+}
+
+.indent {
+    margin-left: 15vw;
+    font-style: italic;
+    color: var(--accent-color);
+}
+
+.signature {
+    font-family: var(--font-script);
+    font-size: 2rem;
+    margin-top: 2rem;
+    transform: rotate(-5deg);
+}
+
+/* Project Frames */
+.painting-frame {
+    width: 40vw;
+    height: 50vh;
+    position: relative;
+    border: 15px solid #2c2c2c;
+    box-shadow: 10px 20px 50px rgba(0,0,0,0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.painting-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.2); /* Zoom initial */
+}
+
+.project-info {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.project-info h3 {
+    font-size: 3rem;
+    font-weight: 400;
+}
+
+.btn-paint {
+    margin-top: 1rem;
+    padding: 10px 30px;
+    background: transparent;
+    border: 1px solid var(--text-color);
+    font-family: var(--font-main);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    color: var(--text-color);
+}
+
+.btn-paint::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.btn-paint:hover {
+    color: #fff;
+    border-color: var(--accent-color);
+}
+
+.btn-paint:hover::after {
+    width: 100%;
+}
+
+/* Contact */
+.huge-link {
+    font-size: 10vw;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.huge-link:hover {
+    color: var(--accent-color);
+    font-family: var(--font-script); /* Changement de typo au survol */
+}
+
+
+
+*{ cursor: none; }
+
+.cursor{
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 3000;
+  transform: translate(-50%, -50%);
+  background: white;
+  mix-blend-mode: difference;
+
+  transition:
+    width .18s ease,
+    height .18s ease,
+    border .18s ease,
+    background .18s ease;
+}
+
+/* état cliquable */
+.cursor.clickable{
+  width: 18px;
+  height: 18px;
+  background: transparent;
+  border: 1.5px solid white;
+}
+
+
+.bio-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5vw;
+    max-width: 80vw;
+}
+
+.bio-image-wrapper {
+    position: relative;
+    width: 25vw;
+    height: 35vw;
+}
+
+.bio-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1); /* Style Noir & Blanc artistique */
+    transition: filter 0.5s ease;
+}
+
+.bio-image-wrapper:hover .bio-img {
+    filter: grayscale(0%); /* La couleur revient au survol */
+}
+
+.bio-frame {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--accent-color);
+    z-index: -1;
+    transition: transform 0.5s ease;
+}
+
+.bio-image-wrapper:hover .bio-frame {
+    transform: translate(10px, 10px);
+}
+
+.bio-text {
+    width: 35vw;
+}
+
+.section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    width: 40%;
+    height: 2px;
+    background: var(--accent-color);
+}
+
+.bio-desc {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    text-align: justify;
+}
+
+.highlight {
+    font-family: var(--font-script);
+    font-size: 1.5rem;
+    color: var(--accent-color);
+}
+
+.signature-mark {
+    margin-top: 3rem;
+    font-family: var(--font-script);
+    font-size: 2rem;
+    text-align: right;
+    opacity: 0.6;
+}
+
+/* --- STYLES COMPÉTENCES (L'Atelier) --- */
+.skills-content {
+    text-align: center;
+    width: 80vw;
+}
+
+.subtitle {
+    font-style: italic;
+    opacity: 0.7;
+    margin-bottom: 4rem;
+}
+
+.skills-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    perspective: 1000px;
+}
+
+.skill-item {
+    font-size: 2vw; /* Gros texte */
+    padding: 1rem 2rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: white; /* Fond papier */
+    position: relative;
+}
+
+/* Effet "Tache de peinture" au survol */
+.skill-item:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+    transform: scale(1.1) rotate(-3deg);
+    border-color: transparent;
+    box-shadow: 10px 10px 0px var(--accent-color);
+}
+
+/* Certains items mis en avant */
+.skill-item.focus {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    font-weight: bold;
+}
+/* --- AJOUTS V2 --- */
+
+/* Section Collection (Lien vers tous les projets) */
+.collection-link {
+    background-color: #1a1a1a; /* Contraste sombre */
+    color: #f3f0e7;
+}
+
+.circle-link {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #f3f0e7;
+    margin-top: 3rem;
+    transition: transform 0.5s ease;
+}
+
+.circle-link:hover {
+    transform: scale(1.1);
+}
+
+.circle-link span {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    z-index: 2;
+}
+
+.rotate-text {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: spin 10s linear infinite;
+    fill: var(--accent-color);
+    font-family: var(--font-script);
+    letter-spacing: 2px;
+    font-size: 14px;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Formulaire Artistique */
+.contact-form-wrapper {
+    width: 50vw;
+    max-width: 600px;
+}
+
+.art-form {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+.input-group input, 
+.input-group textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: var(--font-main);
+    font-size: 1.5rem;
+    color: var(--text-color);
+    padding: 10px 0;
+    resize: none;
+}
+
+.input-group label {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    font-family: var(--font-script);
+    font-size: 1.5rem;
+    color: #888;
+    pointer-events: none;
+    transition: 0.3s ease all;
+}
+
+.input-group .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #ccc;
+}
+
+.input-group .underline::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+/* Animation Label Input */
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label,
+.input-group textarea:focus ~ label,
+.input-group textarea:not(:placeholder-shown) ~ label {
+    top: -25px;
+    font-size: 1rem;
+    color: var(--accent-color);
+}
+
+.input-group input:focus ~ .underline::after,
+.input-group textarea:focus ~ .underline::after {
+    width: 100%;
+}
+
+.btn-paint.large {
+    align-self: flex-start;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.socials-minimal {
+    margin-top: 3rem;
+    text-align: center;
+    font-family: var(--font-script);
+    font-size: 1.2rem;
+}
+
+.socials-minimal a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+.transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #1a1a1a; /* Couleur sombre pour le contraste */
+    z-index: 9999;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    pointer-events: none;
+}
+/* --- Progress bar "fil d'ariane" (index) --- */
+.exhibit-progress{
+  position: fixed;
+  left: 2rem;
+  top: 2rem;
+  bottom: auto;
+  z-index: 980; /* sous le grain (999), au-dessus du contenu */
+  width: min(420px, 78vw);
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  background: rgba(243, 240, 231, 0.85);
+  border: 1px solid rgba(26,26,26,0.12);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.10);
+  backdrop-filter: blur(6px);
+}
+
+.exhibit-progress__top{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.65rem;
+}
+
+.exhibit-progress__title{
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.exhibit-progress__label{
+  font-family: var(--font-script);
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  transform: rotate(-1.5deg);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.exhibit-progress__bar{
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(26,26,26,0.12);
+  overflow: hidden;
+}
+
+.exhibit-progress__fill{
+  position: absolute;
+  inset: 0;
+  background: var(--accent-color);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.exhibit-progress__steps{
+  position: absolute;
+  inset: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.exhibit-progress__step{
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--bg-color);
+  border: 1px solid rgba(26,26,26,0.35);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+  cursor: none; /* ton curseur custom */
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.exhibit-progress__step:hover{
+  transform: translate(-50%, -50%) scale(1.15);
+  border-color: rgba(26,26,26,0.55);
+}
+
+.exhibit-progress__step.is-active{
+  background: var(--accent-color);
+  border-color: transparent;
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+/* Mobile */
+@media (max-width: 700px){
+  .exhibit-progress{
+    left: 1.25rem;
+    top: 1.25rem;
+    bottom: auto;
+  }
+  .exhibit-progress__label{
+    font-size: 1.05rem;
+  }
+}
+/* ================================
+   RESPONSIVE iPhone + iPad (ADDON)
+   À coller à la FIN de style.css
+================================ */
+
+/* iOS friendly viewport height (piloté par JS via --vh) */
+html, body { height: 100%; }
+body{
+  height: auto;
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Panels / wrapper utilisent la hauteur réelle du device (évite les sauts Safari iOS) */
+.wrapper,
+.panel{
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+/* Typo responsive (évite trop grand sur petit / trop petit sur grand) */
+.hero-title{
+  font-size: clamp(2.6rem, 8vw, 6rem);
+}
+.signature{
+  font-size: clamp(1.2rem, 3.5vw, 2rem);
+}
+.section-title{
+  font-size: clamp(2rem, 5.5vw, 4rem);
+}
+.project-info h3{
+  font-size: clamp(1.8rem, 5vw, 3rem);
+}
+.skill-item{
+  font-size: clamp(0.95rem, 2vw, 1.3rem);
+}
+
+/* "La Réserve" (remplace ton inline style supprimé) */
+.hero-title--reserve{
+  font-size: clamp(2.2rem, 6.5vw, 4.5rem);
+}
+
+/* Safe areas (notch) pour l’UI fixe */
+.exhibit-progress{
+  left: max(2rem, env(safe-area-inset-left));
+  top: max(2rem, env(safe-area-inset-top));
+}
+
+/* ---------- iPad / Tablettes ---------- */
+@media (max-width: 1024px){
+  .panel{
+    padding: clamp(1.25rem, 6vw, 3.5rem);
+  }
+
+  .indent{
+    margin-left: 8vw; /* moins agressif que 15vw */
+  }
+
+  /* BIO : plus souple */
+  .bio-container{
+    max-width: 92vw;
+    gap: 4vw;
+  }
+  .bio-image-wrapper{
+    width: 40vw;
+    height: 55vw;
+  }
+  .bio-text{
+    width: 50vw;
+  }
+  .bio-desc{
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+
+  /* Projets : frame plus lisible */
+  .painting-frame{
+    width: 70vw;
+    height: 45vh;
+    border-width: 10px;
+  }
+
+  /* Compétences */
+  .skills-content{ width: 90vw; }
+  .skills-cloud{ gap: 1.25rem; }
+
+  /* Contact */
+  .contact-form-wrapper{
+    width: 80vw;
+    max-width: 680px;
+  }
+
+  /* Réserve : cercle plus compact */
+  .circle-link{
+    width: 180px;
+    height: 180px;
+  }
+}
+
+/* ---------- iPhone / petits écrans ---------- */
+@media (max-width: 700px){
+  .panel{
+    padding: 8vw 6vw;
+  }
+
+  /* Progress bar plus large et safe-area */
+  .exhibit-progress{
+    width: min(360px, 92vw);
+    left: max(1.25rem, env(safe-area-inset-left));
+    top: max(1.25rem, env(safe-area-inset-top));
+  }
+
+  /* BIO : stack en colonne */
+  .bio-container{
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    max-width: 94vw;
+  }
+  .bio-image-wrapper{
+    width: 72vw;
+    height: 92vw;
+  }
+  .bio-text{
+    width: 100%;
+  }
+  .bio-desc{
+    text-align: left;   /* plus agréable sur mobile */
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+  .highlight{
+    font-size: 1.25rem;
+  }
+
+  /* Projets : plein écran-ish */
+  .painting-frame{
+    width: 86vw;
+    height: 48vh;
+    border-width: 10px;
+  }
+
+  .project-info{
+    margin-top: 1.25rem;
+  }
+
+  /* Boutons : faciles à cliquer */
+  .btn-paint{
+    width: 100%;
+    padding: 12px 18px;
+  }
+
+  /* Skills */
+  .skills-cloud{ gap: 1rem; }
+  .skill-item{
+    padding: 0.8rem 1.2rem;
+  }
+
+  /* Réserve */
+  .circle-link{
+    width: 160px;
+    height: 160px;
+  }
+
+  /* Form */
+  .contact-form-wrapper{
+    width: 90vw;
+  }
+  .input-group input,
+  .input-group textarea{
+    font-size: 1.15rem;
+  }
+  .input-group label{
+    font-size: 1.25rem;
+  }
+}
+
+/* ---------- Touch devices : pas de curseur custom ---------- */
+@media (hover: none) and (pointer: coarse){
+  *{ cursor: auto !important; }
+
+  .cursor,
+  .cursor-follower{
+    display: none !important;
+  }
+
+  .exhibit-progress__step{
+    cursor: pointer !important;
+  }
+
+  a, button{
+    -webkit-tap-highlight-color: rgba(192,57,43,0.18);
+  }
+
+  .btn-paint,
+  .circle-link{
+    touch-action: manipulation;
+  }
+}
+/* =======================================================
+   PARCOURS FINAL : FRISE HISTORIQUE AVEC LOGO À DROITE
+   ======================================================= */
+
+.journey-content {
+    width: 95vw; /* On élargit un peu pour faire de la place au 5ème */
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.museum-timeline {
+    display: grid;
+    grid-template-rows: 1fr 2px 1fr;
+    grid-template-columns: repeat(5, 1fr); /* 5 COLONNES ! */
+    gap: 0 2vw; /* Un peu moins d'écart pour que les 5 rentrent bien */
+    position: relative;
+    margin-top: 6rem;
+    align-items: center;
+}
+
+/* Fix pour l'assignation des 5 colonnes */
+.museum-item:nth-child(2) { grid-column: 1; }
+.museum-item:nth-child(3) { grid-column: 2; }
+.museum-item:nth-child(4) { grid-column: 3; }
+.museum-item:nth-child(5) { grid-column: 4; }
+.museum-item:nth-child(6) { grid-column: 5; } /* La 5ème expérience gérée ici */
+
+/* --- L'AXE CENTRAL --- */
+.museum-axis {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    height: 2px;
+    background: rgba(0,0,0,0.15);
+    z-index: 1;
+    transform-origin: left center;
+}
+[data-theme="dark"] .museum-axis { background: rgba(255,255,255,0.15); }
+
+/* --- STRUCTURE DES ITEMS (Haut/Bas) --- */
+.museum-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.museum-item.top {
+    grid-row: 1;
+    justify-content: flex-end;
+    padding-bottom: 35px; /* Espace pour la tige */
+}
+
+.museum-item.bottom {
+    grid-row: 3;
+    justify-content: flex-start;
+    padding-top: 35px; /* Espace pour la tige */
+}
+
+/* --- LA CARTE (Texte à gauche, Logo à droite) --- */
+.museum-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.m-content-wrap {
+    flex: 1;
+}
+
+/* --- LE NOUVEAU BADGE D'ENTREPRISE (Créatif & Dynamique) --- */
+.m-brand {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -10px; /* L'aligne joliment avec la date */
+}
+
+/* Le texte tournant autour du logo */
+.m-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: spin 15s linear infinite; /* Rotation lente par défaut */
+    fill: var(--text-color);
+    font-family: var(--font-main);
+    font-size: 11.5px;
+    letter-spacing: 1.5px;
+    opacity: 0.3;
+    transition: opacity 0.4s ease, fill 0.4s ease;
+}
+
+[data-theme="dark"] .m-ring {
+    fill: var(--text-color);
+}
+
+/* Le conteneur du logo au centre */
+.m-logo-center {
+    width: 45px;
+    height: 45px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.4s ease;
+    filter: grayscale(100%) opacity(0.8); /* Noir & Blanc artistique au repos */
+}
+
+.m-logo-center img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* EFFETS MAGIQUES AU SURVOL DE L'EXPÉRIENCE */
+.museum-item:hover .m-ring {
+    opacity: 1;
+    fill: var(--accent-color);
+    animation: spin 6s linear infinite; /* Le texte tourne plus vite ! */
+}
+
+.museum-item:hover .m-logo-center {
+    transform: scale(1.4) rotate(5deg); /* Le logo sort de l'écran avec un léger tilt */
+    filter: grayscale(0%) opacity(1); /* La couleur revient ! */
+}
+
+/* On désactive les anciens styles m-logo sur mobile pour adapter le badge */
+@media (max-width: 900px) {
+    .m-brand {
+        width: 70px;
+        height: 70px;
+        margin-top: 0;
+    }
+    .m-ring {
+        font-size: 14px;
+    }
+    .m-logo-center {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+/* --- POINTS ET TIGES --- */
+.museum-dot {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--bg-color);
+    border: 2px solid var(--text-color);
+    left: 0;
+    z-index: 3;
+    transition: 0.3s ease;
+}
+.museum-item.top .museum-dot { bottom: -7px; }
+.museum-item.bottom .museum-dot { top: -7px; }
+
+.museum-stem {
+    position: absolute;
+    width: 2px;
+    height: 35px; /* Réduit de 45px à 35px pour compacter */
+    background: rgba(0,0,0,0.1);
+    left: 6px;
+    z-index: 2;
+}
+[data-theme="dark"] .museum-stem { background: rgba(255,255,255,0.1); }
+.museum-item.top .museum-stem { bottom: 0; }
+.museum-item.bottom .museum-stem { top: 0; }
+
+/* --- TYPOGRAPHIE INTERNE --- */
+.m-date {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+}
+
+.m-tag {
+    font-family: var(--font-script);
+    color: var(--text-color);
+    opacity: 0.7;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.8rem;
+}
+
+.m-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.m-desc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+}
+
+.m-school {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border: 1px solid rgba(0,0,0,0.15);
+    opacity: 0.7;
+}
+
+/* --- EFFETS AU SURVOL --- */
+.museum-item:hover .museum-dot {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: scale(1.3);
+}
+
+.museum-item:hover .m-logo {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 900px) {
+    .museum-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
+    .museum-axis {
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        left: 6px;
+        top: 0;
+    }
+    .museum-item.top, .museum-item.bottom {
+        width: 100%;
+        padding: 0 0 0 40px;
+    }
+    .museum-item.top .museum-dot, .museum-item.bottom .museum-dot {
+        left: 0;
+        top: 8px;
+        bottom: auto;
+    }
+    .museum-item.top .museum-stem, .museum-item.bottom .museum-stem {
+        display: none;
+    }
+    .museum-card {
+        gap: 1rem;
+    }
+    .m-logo {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* --- PARTIE GAUCHE (Dates) --- */
+.ed-left {
+    flex: 0 0 100px; /* Largeur fixe pour les dates */
+    text-align: right;
+    padding-top: 0.5rem;
+}
+
+.ed-year {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    line-height: 1.2;
+    color: var(--text-color);
+    font-weight: 700;
+    opacity: 0.3; /* Discret par défaut */
+    transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.ed-item:hover .ed-year {
+    opacity: 1;
+    color: var(--accent-color); /* Devient rouge au survol */
+}
+
+/* --- LA LIGNE DE SÉPARATION --- */
+.ed-divider {
+    width: 1px;
+    background-color: rgba(0,0,0,0.1);
+    position: relative;
+}
+
+/* La ligne colorée qui descend */
+.ed-divider::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px; /* Un peu plus épais */
+    height: 0%; /* Invisible au début */
+    background-color: var(--accent-color);
+    transition: height 0.4s ease;
+}
+
+.ed-item:hover .ed-divider::after {
+    height: 100%; /* Se remplit au survol */
+}
+
+/* --- PARTIE DROITE (Contenu) --- */
+.ed-right {
+    flex: 1;
+    padding-top: 0.2rem;
+    padding-bottom: 2rem;
+}
+
+.ed-tag {
+    font-family: var(--font-script);
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.ed-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.ed-desc {
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+    max-width: 500px;
+}
+
+.ed-school {
+    display: inline-block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 5px 10px;
+    border: 1px solid rgba(0,0,0,0.1);
+    opacity: 0.6;
+}
+
+.journey-mark {
+    text-align: right;
+    font-family: var(--font-script);
+    margin-top: 2rem;
+    opacity: 0.5;
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+    .ed-item {
+        flex-direction: column; /* On empile tout */
+        gap: 1rem;
+        padding-bottom: 3rem;
+        border-left: 1px solid rgba(0,0,0,0.1); /* Ligne à gauche sur mobile */
+        padding-left: 1.5rem;
+    }
+
+    .ed-divider { display: none; } /* On cache la ligne centrale */
+
+    .ed-left {
+        text-align: left;
+        flex: auto;
+    }
+    
+    .ed-year {
+        font-size: 1.5rem;
+    }
+
+    .ed-title {
+        font-size: 1.4rem;
+    }
+}
+/* Modification du conteneur principal */
+.journey-content {
+    width: 80vw;
+    max-width: 900px;
+}
+
+
+.editorial-timeline::-webkit-scrollbar {
+  width: 4px;
+}
+.editorial-timeline::-webkit-scrollbar-track {
+  background: transparent;
+}
+.editorial-timeline::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 4px;
+}
+
+
+/* Ajustement pour que ça rentre mieux (plus compact) */
+.ed-item {
+    display: flex;
+    align-items: stretch;
+    gap: 3rem;
+    padding-bottom: 2rem; /* Réduit un peu l'espace (était 3rem) */
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.ed-year {
+    font-size: 1.5rem; /* Un peu plus petit pour l'élégance */
+}
+
+.ed-title {
+    font-size: 1.5rem; /* Un peu plus petit */
+    margin-bottom: 0.5rem;
+}
+
+.ed-desc {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    max-width: 100%; /* Utilise toute la largeur dispo */
+}
+
+
+        .catalog-header {
+            padding: 15vh 5vw 10vh;
+            text-align: center;
+        }
+
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 5vh;
+            font-family: 'Cinzel', serif;
+        }
+
+        .filter-btn {
+            background: none;
+            border: none;
+            font-family: inherit;
+            font-size: 1rem;
+            opacity: 0.5;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10vw; /* Espacement énorme pour l'effet galerie */
+            padding: 0 10vw 20vh;
+        }
+
+        .catalog-item {
+            position: relative;
+            display: block; /* Link container */
+        }
+
+        /* Décalage une colonne sur deux pour effet masonry */
+        .catalog-item:nth-child(even) {
+            transform: translateY(15vh);
+        }
+
+        .catalog-info {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .cat-title { font-size: 2rem; font-family: 'Playfair Display', serif; }
+        .cat-year { font-family: 'Pinyon Script', cursive; color: var(--accent-color); font-size: 1.5rem; }
+        
+        .back-fixed {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 100;
+            text-decoration: none;
+            color: var(--text-color);
+            mix-blend-mode: normal;
+        }
+    
+        /* --- Corrections demandées --- */
+        .catalog-header .hero-title{
+            mix-blend-mode: normal;
+            color: var(--text-color);
+        }
+        .back-fixed{
+            mix-blend-mode: normal;
+            color: var(--text-color);
+            opacity: 1;
+        }
+
+        /* Tri */
+        .catalog-item.is-hidden{ display:none; }
+        .filter-btn{
+            color: var(--text-color);
+            opacity: 0.7;
+            cursor: none;
+        }
+        .filter-btn.active{ opacity: 1; }
+        .filter-btn::after{
+            content:'';
+            position:absolute;
+            left:0;
+            bottom:-6px;
+            width:0%;
+            height:2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        .filter-btn.active::after,
+        .filter-btn:hover::after{
+            width:100%;
+        }
+
+/* ================================
+   PROJETS (catalogue) — inline styles moved here
+================================ */
+
+/* Remplace: <h1 class="hero-title" style="font-size: 6vw;"> */
+.catalog-header .hero-title{
+  font-size: 6vw;
+}
+
+/* Remplace: style="width: 100%; height: ...vw" sur .painting-frame */
+.catalog-grid .painting-frame{
+  width: 100%;
+}
+
+/* Heights par item (comme dans le HTML original) */
+.catalog-grid .catalog-item:nth-child(1) .painting-frame{ height: 40vw; }
+.catalog-grid .catalog-item:nth-child(2) .painting-frame{ height: 50vw; }
+.catalog-grid .catalog-item:nth-child(3) .painting-frame{ height: 40vw; }
+.catalog-grid .catalog-item:nth-child(4) .painting-frame{ height: 45vw; }
+
+
+/* =========================================
+   PROJET V2 : STYLE VIDÉO / MOTION (Fond Clair)
+   ========================================= */
+
+/* NOUVEAU CODE (compatible Nuit) */
+body.project-v2 {
+    overflow-y: auto !important;
+    height: auto !important;
+    overflow-x: hidden;
+    background-color: var(--bg-color); /* On utilise la variable dynamique */
+}
+
+/* Bouton Fermer : en haut à gauche (laisser le switch à droite) */
+.back-floating {
+  position: fixed;
+
+  /* En haut à gauche + safe-area iPhone */
+  top: max(2rem, env(safe-area-inset-top));
+  left: max(2rem, env(safe-area-inset-left));
+  right: auto;
+
+  z-index: 2000; /* même niveau que le bouton theme */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.back-icon { font-size: 1.5rem; line-height: 1; }
+.back-label {
+  font-family: 'Cinzel', serif;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}
+
+
+/* --- HERO SECTION --- */
+.v2-hero {
+    height: 90vh;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    background: var(--bg-color); /* Fond clair confirmé */
+}
+
+
+
+
+/* La ligne rouge reste ROUGE (pas de blend) */
+.v2-title .line.indent{
+  mix-blend-mode: normal;
+  color: var(--accent-color);
+  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* Le meta-tag rouge reste rouge aussi */
+.meta-tag{
+  mix-blend-mode: normal;
+  color: var(--accent-color);
+}
+
+
+.meta-tag {
+    font-family: var(--font-script);
+    font-size: 1.5rem;
+    display: block; margin-bottom: 1rem;
+    /* Pas de blend mode sur le rouge sinon ça devient cyan */
+    color: var(--accent-color); 
+    mix-blend-mode: normal; 
+}
+
+.v2-title {
+    font-family: 'Cinzel', serif;
+    font-size: 10vw;
+    line-height: 0.8;
+    text-transform: uppercase;
+}
+.v2-title .indent {
+    margin-left: 15vw;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    
+    /* Le Rouge Peinture */
+    color: var(--accent-color);
+ 
+    
+    /* IMPORTANT : On sort ce mot du mix-blend-mode du parent */
+    /* Isolation permet de garder la couleur rouge pure */
+    isolation: isolate; 
+    mix-blend-mode: normal;
+    
+    /* Petite ombre pour qu'il soit lisible sur les fleurs jaunes/vertes */
+    text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.v2-hero-visual {
+    width: 60vw; height: 70vh;
+    z-index: 1;
+    transform: rotate(2deg);
+    position: relative;
+}
+
+.hero-paint {
+    width: 100%; height: 100%;
+    border: none;
+    /* Ombre douce pour fond clair */
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.15); 
+}
+.hero-paint img {
+    width: 100%; height: 100%; object-fit: cover;
+    /* Filtre léger pour unifier */
+    filter: sepia(10%) contrast(1.1); 
+}
+
+/* Hero V2 : vidéo doit remplir le cadre comme une image */
+.hero-paint video{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;      /* ENTIER (pas coupé) */
+  object-position: center;
+  background: var(--bg-color); /* optionnel : couleur derrière si bandes */
+}
+
+
+
+/* --- GRID LAYOUT --- */
+.v2-grid-layout {
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 5vw; width: 90vw; margin: 10vh auto;
+    position: relative;
+}
+
+.v2-sticky-sidebar { position: relative; }
+
+.cartel-box {
+    position: sticky; top: 15vh;
+    padding: 2rem;
+    border-top: 2px solid var(--accent-color);
+}
+
+.cartel-title { font-family: 'Cinzel', serif; font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-color); }
+.cartel-list { list-style: none; padding: 0; margin-bottom: 3rem; }
+.cartel-list li { margin-bottom: 1.5rem; font-family: var(--font-main); font-size: 1rem; color: var(--text-color); }
+.cartel-list li span { display: block; font-family: 'Cinzel', serif; font-size: 0.75rem; opacity: 0.5; margin-bottom: 0.2rem; text-transform: uppercase; }
+
+.v2-scroll-content { padding-top: 15vh; }
+
+.text-chapter { width: 80%; margin-bottom: 10vh; }
+.chapter-number { font-family: var(--font-script); color: var(--accent-color); font-size: 2rem; display: block; margin-bottom: 1rem; }
+.text-chapter h3 { font-family: 'Cinzel', serif; font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--text-color); }
+.text-chapter p { font-size: 1.2rem; line-height: 1.8; text-align: justify; color: var(--text-color); }
+
+/* --- NOUVEAU : STYLE VIDEO CHAPTER --- */
+.video-chapter {
+    margin: 5vh 0 15vh 0;
+    width: 100%;
+}
+
+/* ===============================
+   Chapter split (texte gauche / vidéo droite)
+   =============================== */
+.chapter-split{
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr; /* texte un peu + large que la vidéo */
+  gap: 4vw;
+  align-items: start;
+  margin-bottom: 15vh; /* garde un rythme similaire au reste */
+}
+
+/* On neutralise les largeurs/marges prévues pour l'empilement */
+.chapter-split .text-chapter{
+  width: 100%;
+  margin-bottom: 0;
+}
+
+.chapter-split .video-chapter{
+  width: 100%;
+  margin: 0;
+}
+
+/* Optionnel : pour que la verticale reste propre dans la colonne */
+.chapter-split .vertical-video{
+  width: min(420px, 100%);
+  margin: 0 auto;
+}
+
+/* Sur iPad/iPhone : on repasse en pile (comme ton layout mobile actuel) */
+@media (max-width: 900px){
+  .chapter-split{
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 10vh;
+  }
+}
+
+
+.video-frame {
+    width: 100%; 
+    height: auto; 
+    aspect-ratio: 16/9;
+    border: 10px solid #fff; /* Cadre blanc autour de la vidéo */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.video-frame video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.video-caption {
+    font-family: var(--font-script);
+    text-align: right;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    opacity: 0.6;
+}
+
+.gallery-duo { display: flex; gap: 2rem; margin-bottom: 15vh; }
+.duo-item { flex: 1; height: 40vw; overflow: hidden; }
+.duo-item img { width: 100%; height: 120%; object-fit: cover; }
+.duo-item:nth-child(2) { margin-top: 10vh; }
+
+/* --- NEXT --- */
+.v2-next {
+    height: 40vh; display: flex; align-items: center; justify-content: center;
+    background: #1a1a1a; color: #f3f0e7; text-align: center;
+}
+.next-sub { display: block; font-family: var(--font-script); font-size: 1.5rem; color: var(--accent-color); margin-bottom: 1rem; }
+.next-title { font-family: 'Cinzel', serif; font-size: 5vw; color: #f3f0e7; text-decoration: none; transition: letter-spacing 0.5s ease; }
+.next-title:hover { letter-spacing: 10px; }
+
+@media (max-width: 900px) {
+    .v2-grid-layout { grid-template-columns: 1fr; }
+    .cartel-box { position: relative; top: 0; margin-bottom: 3rem; border-top: none; border-left: 2px solid var(--accent-color); }
+    .v2-scroll-content { padding-top: 0; }
+    .v2-title { font-size: 15vw; }
+    .v2-hero-visual { width: 80vw; height: 50vh; }
+    .text-chapter { width: 100%; }
+    .gallery-duo { flex-direction: column; }
+    .duo-item { height: 60vh; }
+}
+
+/* À ajouter à la fin de style.css */
+
+/* Pour les mockups de site web */
+.web-mockup img.scroll-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ou 'contain' si tu veux voir tout le site sans couper */
+    object-position: top; /* On montre le haut du site en priorité */
+}
+
+/* =========================================
+   MODE GALERIE NOCTURNE (DARK MODE)
+   ========================================= */
+
+/* 1. Définition des couleurs Nuit */
+[data-theme="dark"] {
+    --bg-color: #121212;      /* Noir charbon profond */
+    --text-color: #e0e0e0;    /* Blanc cassé pour ne pas agresser l'œil */
+    --accent-color: #ff4757;  /* Rouge légèrement plus vif pour le contraste */
+    --frame-border: #2a2a2a;
+}
+
+/* Transition douce pour tout le site */
+body, .panel, .timeline-card, .skill-item, .painting-frame {
+    transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease;
+}
+
+/* 2. Ajustements spécifiques au mode sombre */
+
+/* Le grain (noise) doit être plus subtil sur fond noir */
+[data-theme="dark"] .noise-overlay {
+    opacity: 0.08;
+    background-image: url("https://grainy-gradients.vercel.app/noise.svg"); 
+    filter: invert(1); /* Inverse le grain pour qu'il soit clair sur fond sombre */
+}
+
+/* Inversion des bordures et cartes */
+[data-theme="dark"] .painting-frame {
+    border-color: #333;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8); /* Ombres plus profondes */
+}
+
+[data-theme="dark"] .timeline-card,
+[data-theme="dark"] .skill-item {
+    background: #1e1e1e; /* Carte gris foncé */
+    border-color: #333;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .skill-item:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
+/* Le formulaire et les inputs */
+[data-theme="dark"] .input-group input, 
+[data-theme="dark"] .input-group textarea {
+    color: var(--text-color);
+}
+[data-theme="dark"] .input-group .underline {
+    background: #444;
+}
+
+/* La barre de progression (fil d'ariane) */
+[data-theme="dark"] .exhibit-progress {
+    background: rgba(30, 30, 30, 0.85);
+    border-color: rgba(255,255,255,0.1);
+}
+[data-theme="dark"] .exhibit-progress__step {
+    background: #121212;
+    border-color: rgba(255,255,255,0.3);
+}
+
+/* --- LE BOUTON SWITCH (Style DA) --- */
+.theme-btn {
+    position: fixed;
+    top: 2.5rem;
+    right: 3rem;
+    z-index: 2000; /* Au-dessus de tout */
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-script);
+    font-size: 1.2rem;
+color: #fff;
+mix-blend-mode: difference;
+
+    opacity: 0.8;
+    transition: transform 0.3s ease, opacity 0.3s;
+}
+
+.theme-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.theme-icon {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    background: currentColor; /* Plein = Jour */
+    transition: background 0.3s ease;
+}
+
+/* En mode nuit, l'icône devient un cercle vide (Lune/Nuit) */
+[data-theme="dark"] .theme-icon {
+    background: transparent; 
+}
+
+/* Ajustement Mobile */
+@media (max-width: 700px) {
+    .theme-btn {
+        top: 1.5rem;
+        right: 1.5rem;
+    }
+}
+/* ===============================
+   MODE NUIT : section Réserve claire
+   =============================== */
+
+[data-theme="dark"] .collection-link {
+    background: #f3f0e7; /* même fond que ton site */
+    color: #1a1a1a;
+}
+
+/* textes à l'intérieur */
+[data-theme="dark"] .collection-link h2,
+[data-theme="dark"] .collection-link p,
+[data-theme="dark"] .collection-link span {
+    color: #1a1a1a;
+}
+
+/* ligne décorative */
+[data-theme="dark"] .collection-link::before,
+[data-theme="dark"] .collection-link::after {
+    background: #1a1a1a;
+}
+/* FIX: "La Réserve" (h2.hero-title--reserve) devient noir en mode nuit */
+[data-theme="dark"] .collection-link .hero-title--reserve{
+  color: #111 !important;
+  mix-blend-mode: normal !important; /* annule le "exclusion" qui grise */
+  opacity: 1 !important;
+}
+[data-theme="dark"] .collection-link .subtitle{
+  color: #111 !important;
+  opacity: 0.9;
+}
+
+/* ===============================
+   Parcours : section moins haute
+   =============================== */
+.panel.journey {
+    height: auto;
+    min-height: 80vh;
+    padding-top: 4vh;    /* On réduit drastiquement le vide en haut (était 12vh) */
+    padding-bottom: 8vh;
+    justify-content: flex-start; 
+}
+.museum-timeline {
+    display: grid;
+    grid-template-rows: 1fr 2px 1fr;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0 3vw;
+    position: relative;
+    margin-top: 2rem;    /* On rapproche la frise du titre (était 6rem) */
+    align-items: center;
+}
+
+/* =========================================
+   MOBILE / iPAD : INDEX en scroll vertical
+   ========================================= */
+
+body.is-mobile{
+  height: auto !important;
+  width: 100% !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+/* On annule le wrapper horizontal */
+body.is-mobile .wrapper{
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Les sections redeviennent verticales */
+body.is-mobile .panel{
+  width: 100% !important;
+  height: auto !important;
+  min-height: calc(var(--vh, 1vh) * 100); /* garde l’effet “plein écran” */
+  padding: clamp(1.25rem, 6vw, 3rem) !important;
+  justify-content: center;
+}
+
+/* Sur mobile, la progress bar “exposition” (pensée pour l’horizontal) peut gêner */
+body.is-mobile .exhibit-progress{
+  display: none;
+}
+
+/* =========================================
+   CATALOGUE : 1 colonne sur mobile/tablette
+   ========================================= */
+@media (max-width: 900px){
+  .catalog-grid{
+    grid-template-columns: 1fr;
+    gap: 8vh;
+    padding: 0 7vw 12vh;
+  }
+
+  .catalog-item:nth-child(even){
+    transform: none;
+  }
+
+  .catalog-info{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .cat-title{ font-size: 1.6rem; }
+  .cat-year{ font-size: 1.2rem; }
+}
+/* =================================================
+   MOBILE / TABLETTE — sections moins aérées
+   ================================================= */
+
+body.is-mobile .panel{
+  min-height: auto !important;
+  padding: 12vw 7vw !important;
+}
+
+/* Hero moins gigantesque */
+body.is-mobile .hero{
+  padding-top: 18vh !important;
+  padding-bottom: 12vh !important;
+}
+
+/* Portrait */
+body.is-mobile .bio-container{
+  gap: 2rem;
+}
+body.is-mobile .bio-text{
+  margin-top: 1rem;
+}
+
+/* Atelier (skills) */
+body.is-mobile .skills-content{
+  width: 100%;
+}
+body.is-mobile .skills-cloud{
+  gap: 1rem;
+}
+body.is-mobile .skill-item{
+  padding: 0.6rem 1rem;
+}
+
+/* Projets */
+body.is-mobile .project-info{
+  margin-top: 1rem;
+}
+
+/* Réserve */
+body.is-mobile .circle-link{
+  margin-top: 1.5rem;
+}
+
+/* Parcours */
+body.is-mobile .editorial-timeline{
+  max-height: 55vh;
+  margin-top: 2rem;
+}
+body.is-mobile .ed-item{
+  padding-bottom: 1.5rem;
+  gap: 1.5rem;
+}
+
+/* Contact */
+body.is-mobile .contact-form-wrapper{
+  width: 100%;
+}
+body.is-mobile .art-form{
+  gap: 1.8rem;
+}
+body.is-mobile .socials-minimal{
+  margin-top: 2rem;
+}
+body.is-mobile .hero-title{
+  mix-blend-mode: normal;
+}
+
+/* on garde le rouge pur */
+body.is-mobile .indent{
+  color: var(--accent-color);
+}
+
+/* =========================================
+   PROJETS — iPhone : moins serré, plus respirant
+   ========================================= */
+@media (max-width: 600px){
+
+  /* Header un peu plus aéré */
+  .catalog-header{
+    padding: 12vh 7vw 8vh;
+  }
+
+  /* Barre de filtres : wrap + espacement */
+  .filter-bar{
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 4vh;
+    padding: 0 4vw;
+  }
+  .filter-btn{
+    font-size: 0.95rem;
+    padding: 0.25rem 0.2rem;
+  }
+
+  /* Grille : plus de padding latéral + espacement vertical */
+  .catalog-grid{
+    padding: 0 9vw 14vh;
+    gap: 10vh;
+  }
+
+  /* Infos sous les items : plus lisible */
+  .catalog-info{
+    padding-bottom: 14px;
+    gap: 0.35rem;
+  }
+  .cat-title{ font-size: 1.75rem; }
+  .cat-year{ font-size: 1.25rem; }
+
+  /* Images : un peu plus “grandes” visuellement */
+  .catalog-grid .painting-frame{
+    border-width: 10px;
+  }
+}
+/* =========================================
+   iPhone/iPad : voir les images ENTIERES (contain)
+   ========================================= */
+@media (max-width: 1024px){
+
+  /* Cadres (index + projets) */
+  .painting-frame{
+    background: #111;          /* fond du cadre quand l'image ne remplit pas */
+    height: auto;              /* on évite des hauteurs trop agressives */
+    aspect-ratio: 4 / 5;       /* ratio “cadre” (ajuste si tu veux) */
+  }
+
+  .painting-frame img{
+    object-fit: contain !important;   /* image entière */
+    object-position: center;
+    transform: none !important;       /* enlève le zoom/crop */
+  }
+
+  /* Projets.html : les frames avaient des heights en vw → on neutralise sur mobile */
+  .catalog-grid .painting-frame{
+    height: auto !important;
+    aspect-ratio: 3 / 4;        /* un peu plus “affiche” */
+  }
+}
+/* =========================================
+   iPhone / iPad — images naturelles (0 crop, 0 bandes)
+   le cadre s'adapte à la photo
+   ========================================= */
+@media (max-width: 1024px){
+
+  /* Le cadre devient flexible */
+  .painting-frame{
+    height: auto !important;
+    aspect-ratio: auto !important;
+    padding: 0;
+    display: block;
+    border-width: 10px;
+  }
+
+  /* L’image définit la taille */
+  .painting-frame img{
+    width: 100%;
+    height: auto !important;
+    object-fit: contain !important;
+    transform: none !important;
+    display: block;
+  }
+
+  /* Catalogue : enlever les hauteurs forcées en vw */
+  .catalog-grid .catalog-item .painting-frame{
+    height: auto !important;
+  }
+
+  /* Décalage masonry inutile en mobile */
+  .catalog-item:nth-child(even){
+    transform: none !important;
+  }
+}
+
+
+/* ==================================================
+   HERO V2 : "Can I get" + "Architecture"
+   -> noir en mode jour, clair en mode nuit
+   (sans changer le fond)
+   ================================================== */
+
+   .v2-hero-content {
+    position: absolute;
+    z-index: 10;
+    text-align: center;
+    width: 100%;
+    /* IMPORTANT : on coupe le blend sinon ça inverse les couleurs (cyan, blanc en jour, etc.) */
+    mix-blend-mode: normal;
+    color: var(--text-color); /* noir en jour, clair en nuit */
+}
+
+
+body.project-v2 .v2-hero-content{
+  mix-blend-mode: normal;
+  color: var(--text-color);
+}
+
+/* Les lignes NON rouges (= Can I get / Architecture) */
+body.project-v2 .v2-title .line:not(.indent){
+  mix-blend-mode: normal;
+  color: var(--text-color);
+  text-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* En mode nuit : shadow plus fort */
+[data-theme="dark"] body.project-v2 .v2-title .line:not(.indent){
+  text-shadow: 0 12px 34px rgba(0,0,0,0.85);
+}
+/* ===== CATALOGUE : pas de soulignement du tout ===== */
+/* enlève uniquement le style lien */
+.catalog-item{
+  text-decoration: none !important;
+}
+
+.catalog-item:hover{
+  text-decoration: none !important;
+}
+
+/* enlève la ligne sous le texte uniquement */
+.catalog-info,
+.catalog-info *{
+  border-bottom: none !important;
+}
+
+/* ===== CATALOGUE : texte adaptatif jour/nuit ===== */
+
+/* titre */
+.catalog-grid .cat-title{
+  color: var(--text-color);
+}
+
+/* année */
+.catalog-grid .cat-year{
+  color: var(--accent-color);
+}
+/* =========================================
+   JAUGE CATALOGUE (FIL D'ARIANE DYNAMIQUE)
+   ========================================= */
+
+.catalog-gauge {
+    position: fixed;
+    right: 3vw;
+    top: 50%;
+    --gauge-scale: 1;
+    transform: translateY(-50%) scale(var(--gauge-scale));
+    transform-origin: center;
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    mix-blend-mode: difference; /* S'adapte au fond (Jour/Nuit) */
+    pointer-events: none; /* Ne gêne pas le clic */
+    transition: opacity 0.4s ease, transform 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+}
+/* Tailles par catégorie (filtre) — le "Tout" est volontairement plus grand que "Web" */
+.catalog-gauge[data-filter="all"]{ --gauge-scale: 1.12; }
+.catalog-gauge[data-filter="webdesign"]{ --gauge-scale: 1.03; }
+.catalog-gauge[data-filter="creative-coding"]{ --gauge-scale: 0.99; }
+.catalog-gauge[data-filter="experiences"]{ --gauge-scale: 0.92; }
+
+
+/* Compteur (ex: 01 — 05) */
+.gauge-counter {
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    color: #fff; /* Grâce au mix-blend-mode, sera visible */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.8;
+}
+
+.gauge-sep {
+    width: 1px;
+    height: 15px;
+    background: currentColor;
+    opacity: 0.5;
+}
+
+/* La ligne verticale (Rail) */
+.gauge-line {
+    width: 2px;
+    /* La hauteur sera définie par JS selon le nombre de projets */
+    height: 0px; 
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+    transition: height 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Animation fluide de la taille */
+}
+
+/* Le remplissage (Barre active) */
+.gauge-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0%; /* Sera piloté par le scroll */
+    background: #fff; /* Deviendra rouge ou noir via mix-blend-mode ou JS */
+}
+
+/* Mode Mobile : On cache ou on réduit */
+@media (max-width: 900px) {
+    .catalog-gauge {
+        right: 1.5rem;
+        transform: translateY(0) scale(var(--gauge-scale));
+        transform-origin: center;
+        top: auto;
+        bottom: 2rem;
+        flex-direction: row-reverse; /* Horizontal sur mobile */
+    }
+    
+    .gauge-counter {
+        flex-direction: row;
+    }
+    
+    .gauge-sep {
+        width: 15px;
+        height: 1px;
+    }
+
+    .gauge-line {
+        width: 0px; /* Largeur pilotée par JS */
+        height: 2px !important; /* Hauteur fixe */
+        transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+}
+/* ===============================
+   Vidéo verticale
+   =============================== */
+
+.vertical-video{
+  aspect-ratio: 9 / 16;   /* format téléphone */
+  width: min(420px, 70vw); /* taille propre */
+  height: auto;
+  margin: 0 auto;
+}
+
+/* la vidéo remplit parfaitement */
+.vertical-video video{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000; /* bandes propres */
+}
+/* Cette vidéo uniquement : pas de bandes */
+#freelance-vertical-video{
+  object-fit: cover !important;
+  object-position: center !important;
+  background: transparent !important;
+}
+/* ===== YouTube dans cadre ===== */
+
+.youtube-media{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* vidéo horizontale */
+  overflow: hidden;
+}
+
+.youtube-media iframe{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+/* =========================================
+   PROJECT V2 — gallery-duo en format horizontal (16:9)
+   ========================================= */
+body.project-v2 .gallery-duo .duo-item{
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+body.project-v2 .gallery-duo .duo-item img{
+  width: 100%;
+  height: 115% !important;   /* garde un peu de marge pour la parallaxe data-speed */
+  object-fit: cover;
+  display: block;
+}
+
+/* Mobile: ton CSS met .duo-item à 60vh, on l'annule */
+@media (max-width: 900px){
+  body.project-v2 .gallery-duo{
+    flex-direction: column;
+  }
+  body.project-v2 .gallery-duo .duo-item{
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+  }
+  body.project-v2 .gallery-duo .duo-item:nth-child(2){
+    margin-top: 6vh; /* un peu moins que 10vh (plus clean sur mobile) */
+  }
+}
+/* =========================================
+   PROJECT V2 — galerie trio (après Défi Technique)
+   ========================================= */
+body.project-v2 .gallery-trio{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 15vh;
+}
+
+body.project-v2 .gallery-trio .trio-item{
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+body.project-v2 .gallery-trio .trio-item img{
+  width: 100%;
+  height: 115%;
+  object-fit: cover;
+  display: block;
+}
+
+/* petit décalage “musée” */
+body.project-v2 .gallery-trio .trio-item:nth-child(2){
+  transform: translateY(6vh);
+}
+
+/* responsive */
+@media (max-width: 900px){
+  body.project-v2 .gallery-trio{
+    grid-template-columns: 1fr;
+  }
+  body.project-v2 .gallery-trio .trio-item:nth-child(2){
+    transform: none;
+  }
+}
+/* =========================================
+   gallery-duo mix : 1 horizontal + 1 vertical
+   ========================================= */
+
+body.project-v2 .gallery-duo{
+  align-items: start; /* évite des étirements bizarres */
+}
+
+body.project-v2 .gallery-duo .duo-item{
+  height: auto !important;
+  overflow: hidden;
+}
+
+/* Horizontal 16:9 */
+body.project-v2 .gallery-duo .duo-item.duo-landscape{
+  aspect-ratio: 16 / 9;
+}
+
+/* Vertical “tableau” */
+body.project-v2 .gallery-duo .duo-item.duo-portrait{
+  aspect-ratio: 4 / 5; /* ou 3/4 si tu veux plus “affiche” */
+}
+
+/* Images */
+body.project-v2 .gallery-duo .duo-item img{
+  width: 100%;
+  height: 115% !important;   /* marge pour le data-speed/parallaxe */
+  object-fit: contain;
+  display: block;
+}
+
+/* Mobile : on stack (sinon vertical trop petit à côté) */
+@media (max-width: 900px){
+  body.project-v2 .gallery-duo{
+    flex-direction: column;
+  }
+  body.project-v2 .gallery-duo .duo-item.duo-portrait{
+    width: min(520px, 100%);
+    margin: 0 auto;
+  }
+  body.project-v2 .gallery-duo .duo-item:nth-child(2){
+    margin-top: 6vh;
+  }
+}
+
+/* =========================================
+   FIX: images ajoutées (gallery-trio) visibles en entier
+   ========================================= */
+body.project-v2 .gallery-trio .trio-item{
+  background: rgba(0,0,0,0.06); /* discret, comme un passe-partout */
+}
+
+body.project-v2 .gallery-trio .trio-item img{
+  height: 100% !important;
+  object-fit: contain !important;   /* ENTIER */
+  transform: none !important;
+}
+/* =========================================
+   FIX: verticale trop grande (gallery-duo)
+   ========================================= */
+body.project-v2 .gallery-duo .duo-item.duo-portrait{
+  aspect-ratio: 3 / 4;        /* moins haute que 4/5 */
+  max-height: 40vh;           /* limite la hauteur */
+}
+
+/* Mobile: encore un peu plus compact */
+@media (max-width: 900px){
+  body.project-v2 .gallery-duo .duo-item.duo-portrait{
+    max-height: 52vh;
+    width: min(380px, 100%);
+    margin: 0 auto;
+  }
+}
+/* =========================================
+   gallery-duo : 1 image + 1 vidéo (horizontales 16:9)
+   ========================================= */
+
+body.project-v2 .gallery-duo .duo-item.duo-landscape{
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+/* Image (garde ton style) */
+body.project-v2 .gallery-duo .duo-item.duo-landscape img{
+  width: 100%;
+  height: 115% !important;   /* si tu veux éviter le crop -> mets 100% */
+  object-fit: cover;
+  display: block;
+}
+
+/* Vidéo */
+body.project-v2 .gallery-duo .duo-item.duo-video video{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;         /* plein cadre, sans bandes */
+  object-position: center;
+  background: transparent;
+}
+/* =========================================
+   gallery-duo : image entière (mais vidéo intacte)
+   ========================================= */
+
+/* uniquement l'image, pas la vidéo */
+body.project-v2 .gallery-duo .duo-item.duo-landscape:not(.duo-video) img{
+  height: 100% !important;
+  object-fit: contain !important;
+  background: rgba(0,0,0,0.06); /* petit fond propre au lieu de crop */
+}
+/* ===== Shorts YouTube (vertical 9:16) ===== */
+.video-frame.youtube-short{
+  overflow: hidden;
+}
+
+.short-embed{
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: inherit;
+  overflow: hidden;
+  /* optionnel : évite que ça devienne gigantesque sur très grands écrans */
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.short-embed iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Sur desktop, si tu veux un peu plus grand */
+@media (min-width: 1100px){
+  .short-embed{
+    max-width: 460px;
+  }
+}
+/* ==========================
+   FIX SHORTS (vertical 9:16)
+   à coller tout en bas
+========================== */
+
+/* On override ton .video-frame { aspect-ratio:16/9 } sur les shorts */
+body.project-v2 .video-frame.video-short{
+  aspect-ratio: 9 / 16;
+  height: auto;
+  max-width: 420px;     /* taille desktop propre */
+  width: 100%;
+  margin: 0 auto;       /* centré dans la colonne droite */
+  overflow: hidden;
+}
+
+/* L’iframe doit remplir le cadre */
+body.project-v2 .video-frame.video-short iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Option: sur très grands écrans, un poil plus grand */
+@media (min-width: 1200px){
+  body.project-v2 .video-frame.video-short{
+    max-width: 460px;
+  }
+}
+
+/* Option: mobile => prend plus de largeur */
+@media (max-width: 700px){
+  body.project-v2 .video-frame.video-short{
+    max-width: 520px;
+  }
+}
+/* ==========================
+   SHORTS : SANS CADRE + PLUS PETITS
+   (à coller tout en bas)
+========================== */
+
+body.project-v2 .video-frame.video-short{
+  aspect-ratio: 9 / 16;   /* vertical */
+  width: 100%;
+  max-width: 320px;       /* <-- plus petit (change ici si tu veux) */
+  margin: 0 auto;
+
+  /* enlever le cadre */
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+
+  /* optionnel : coins doux sans “cadre” */
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+body.project-v2 .video-frame.video-short iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Mobile : un peu plus large pour éviter trop petit */
+@media (max-width: 700px){
+  body.project-v2 .video-frame.video-short{
+    max-width: 360px;
+  }
+}
+/* ==========================
+   CTA CV — Index (Le Portrait)
+========================== */
+
+.page-index .bio-actions{
+  margin-top: 1.8rem;
+}
+
+.page-index .bio-actions-label{
+  display: inline-block;
+  font-family: var(--font-script);
+  color: var(--accent-color);
+  font-size: 1.6rem;
+  margin-bottom: 0.55rem;
+  transform: rotate(-2deg);
+  opacity: 0.95;
+}
+
+.page-index .btn-paint.btn-cv{
+  margin-top: 0;            /* on annule le margin-top par défaut */
+  padding: 10px 24px;       /* un peu plus “raffiné” */
+}
+
+/* =======================================================
+   CORRECTION RESPONSIVE : FRISE CHRONOLOGIQUE 
+   (Tablettes & Mobiles)
+   ======================================================= */
+
+@media (max-width: 1024px) {
+    /* 1. On détruit la grille de 5 colonnes pour passer en liste verticale */
+    .museum-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        margin-top: 3rem;
+        padding-bottom: 2rem;
+    }
+
+    /* 2. L'axe devient une ligne continue sur le côté gauche */
+    .museum-axis {
+        position: absolute;
+        width: 2px;
+        height: 100%;
+        left: 6px; 
+        top: 0;
+        grid-row: auto;
+        grid-column: auto;
+    }
+
+    /* 3. On annule les espacements haut/bas du mode "zigzag" PC */
+    .museum-item.top, 
+    .museum-item.bottom {
+        width: 100%;
+        padding: 0 0 0 40px !important; /* Laisse juste l'espace pour l'axe à gauche */
+        justify-content: flex-start;
+    }
+
+    /* 4. Le point s'aligne parfaitement sur l'axe */
+    .museum-item.top .museum-dot, 
+    .museum-item.bottom .museum-dot {
+        left: 0 !important;
+        top: 6px !important; 
+        bottom: auto !important;
+    }
+
+    /* 5. On cache les tiges horizontales (inutiles en vertical) */
+    .museum-item.top .museum-stem, 
+    .museum-item.bottom .museum-stem {
+        display: none !important;
+    }
+
+    /* --- LA CARTE ET LE BADGE --- */
+    .museum-card {
+        display: flex;
+        flex-direction: column-reverse; /* MAGIQUE : Place le macaron AU-DESSUS du texte ! */
+        gap: 1.5rem;
+        align-items: flex-start;
+    }
+
+    /* Ajustement de la taille du macaron pour Tablette */
+    .m-brand {
+        margin-top: 0;
+        width: 80px;  
+        height: 80px;
+    }
+    
+    .m-logo-center {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .m-ring {
+        font-size: 13.5px;
+    }
+}
+
+/* Ajustements finaux pour les petits téléphones (iPhone) */
+@media (max-width: 600px) {
+    .museum-timeline {
+        gap: 3.5rem;
+    }
+    
+    .museum-card {
+        gap: 1rem;
+    }
+    
+    .m-brand {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .m-logo-center {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .m-ring {
+        font-size: 15px; /* Augmente la lisibilité du texte sur un petit cercle */
+    }
+}

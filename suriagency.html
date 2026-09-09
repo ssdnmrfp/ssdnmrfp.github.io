@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suri Agency |  Firmino Pedro</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="project-v2">
+
+    <div class="noise-overlay"></div>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <button id="theme-toggle" class="theme-btn" aria-label="Changer l'ambiance">
+    <span class="theme-text">Nuit</span>
+    <div class="theme-icon"></div>
+</button>
+
+    <a href="projets.html" class="back-floating">
+        <span class="back-icon">✕</span>
+        <span class="back-label">Fermer l'œuvre</span>
+    </a>
+
+    <main>
+        
+        <header class="v2-hero">
+            <div class="v2-hero-content">
+                <span class="meta-tag">Web Design & Dev — 2024</span>
+                <h1 class="v2-title">
+                    <div class="line">Agence</div>
+                    <div class="line indent">Suri</div>
+                </h1>
+            </div>
+            
+            <div class="v2-hero-visual">
+                <div class="painting-frame hero-paint">
+                    <img src="images/filsdelhommepaysage.jpg" alt="Flower Boy Cover Art" data-speed="0.8">
+                </div>
+            </div>
+        </header>
+
+        <section class="v2-grid-layout">
+            
+            <aside class="v2-sticky-sidebar">
+                <div class="cartel-box">
+                    <h2 class="cartel-title">Fiche Technique</h2>
+                    <ul class="cartel-list">
+                        <li><span>Rôle</span> UI/UX & Dev Front-End</li>
+                        <li><span>Client</span> Moi même</li>
+                        <li><span>Stack</span> HTML, CSS, JS, GSAP</li>
+                        <li><span>Année</span> 2026</li>
+                    </ul>
+                    <a href="http://suristudio.fr/" target="_blank" class="btn-paint small">Visiter le site &rarr;</a>
+                </div>
+                <div class="decoration-line"></div>
+            </aside>
+
+            <div class="v2-scroll-content">
+                
+                <div class="text-chapter">
+                    <span class="chapter-number">01.</span>
+                    <h3>L'Expérience Utilisateur</h3>
+                    <p>
+                        L'objectif était de créer une plateforme digitale percutante pour Suri, une agence web créative. 
+                        Le site devait dépasser le simple statut de portfolio pour devenir une véritable démonstration de notre savoir-faire technique.
+                        <br><br>
+                        J'ai opté pour des micro-interactions soignées, une navigation asynchrone ultra-rapide et des transitions de page sans coupure 
+                        pour affirmer l'identité "premium" et innovante de l'agence.
+                    </p>
+                </div>
+
+                <div class="video-chapter">
+                    <div class="painting-frame video-frame web-mockup">
+                        <video autoplay loop muted playsinline preload="auto">
+        
+                            <source src="videos/suri.mp4" type="video/mp4">
+        
+                            <p>Votre navigateur ne supporte pas la vidéo HTML5.</p>
+                        </video>
+                        <div class="video-caption">Interface Desktop — Page Projets</div>
+                    </div>
+                </div>
+
+                <div class="text-chapter">
+                    <span class="chapter-number">02.</span>
+                    <h3>Design System</h3>
+                    <p>
+                            L’interface a été pensée autour d’une esthétique sobre et lisible, pour laisser la place au contenu et aux animations.
+    La typographie et les espacements structurent la lecture tandis que les contrastes guident naturellement l’attention.
+    <br><br>
+    Plutôt qu’un design system complexe, le projet repose sur des règles graphiques simples et cohérentes,
+    appliquées sur l’ensemble du site afin de garantir une expérience claire et homogène.
+                    </p>
+                </div>
+
+                <div class="gallery-duo">
+                    <div class="duo-item" data-speed="1.1">
+                        <img src="images/suri1.png" alt="Version Mobile Responsive">
+                    </div>
+                    <div class="duo-item" data-speed="1">
+                        <img src="images/suri2.png" alt="Détail Interaction Menu">
+                    </div>
+                </div>
+
+                <div class="text-chapter">
+                    <span class="chapter-number">03.</span>
+                    <h3>Performance & Code</h3>
+                    <p>
+                        Le site a été entièrement développé en HTML, CSS et JavaScript, avec GSAP pour orchestrer les animations et donner du rythme à la navigation.
+    L’objectif n’était pas d’empiler les technologies, mais de garder un contrôle total sur le rendu et les performances.
+    <br><br>
+    Chaque interaction a été pensée pour rester fluide et légère : animations optimisées, chargements maîtrisés et structure propre.
+    Le projet démontre qu’une expérience visuelle forte peut rester rapide, stable et agréable sans dépendre de frameworks lourds.
+                    </p>
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <nav class="v2-next">
+            <div class="next-wrapper">
+                <span class="next-sub">Exposition suivante</span>
+                <a href="canigetakiss.html" class="next-title">Motion Freelance</a>
+            </div>
+        </nav>
+
+    </main>
+    
+    <div class="transition-overlay"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

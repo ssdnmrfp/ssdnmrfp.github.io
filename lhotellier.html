@@ -1,0 +1,237 @@
+<!-- =========================
+     FICHIER : triptyque.html
+     (à mettre à côté de style.css + script.js)
+========================= -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Série Vidéo |  Firmino Pedro</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="project-v2">
+
+  <div class="noise-overlay"></div>
+  <div class="cursor"></div>
+  <div class="cursor-follower"></div>
+
+  <button id="theme-toggle" class="theme-btn" aria-label="Changer l'ambiance">
+    <span class="theme-text">Nuit</span>
+    <div class="theme-icon"></div>
+  </button>
+
+  <a href="projets.html" class="back-floating">
+    <span class="back-icon">✕</span>
+    <span class="back-label">Fermer l'œuvre</span>
+  </a>
+
+  <main>
+
+    <!-- =========================
+         HERO
+    ========================= -->
+    <header class="v2-hero">
+      <div class="v2-hero-content">
+        <span class="meta-tag">Série Vidéo — 2026</span>
+        <h1 class="v2-title">
+          <div class="line">Vidéos Présentations</div>
+          <div class="line indent">de Métiers</div>
+        </h1>
+      </div>
+
+      <div class="v2-hero-visual">
+        <div class="painting-frame hero-paint">
+          <!-- Remplace par ton visuel de cover -->
+          <img src="images/2705-audace-de-nos-territoires_en.webp" alt="Cover du triptyque vidéo">
+          <!-- Variante si tu veux un HERO en vidéo :
+          <video autoplay loop muted playsinline preload="auto">
+            <source src="videos/hero-triptyque.mp4" type="video/mp4">
+          </video>
+          -->
+        </div>
+      </div>
+    </header>
+
+    <!-- =========================
+         LAYOUT : SIDEBAR + CONTENU
+    ========================= -->
+    <section class="v2-grid-layout">
+
+      <aside class="v2-sticky-sidebar">
+        <div class="cartel-box">
+          <h2 class="cartel-title">Fiche Technique</h2>
+
+          <ul class="cartel-list">
+            <li><span>Projet</span> Série de 6 vidéos</li>
+            <li><span>Format</span> Vidéo Short / YouTube</li>
+            <li><span>Durée</span> ~ 14 minutes</li>
+            <li><span>Outils</span> Premiere Pro, After Effects</li>
+            <li><span>Technique</span> Montage / Motion / Tournage</li>
+            <li><span>Année</span> 2025</li>
+          </ul>
+
+        </div>
+
+        <div class="decoration-line"></div>
+      </aside>
+
+<div class="v2-scroll-content">
+
+  <!-- =========================
+       00 — TEXTE ONLY (split)
+  ========================= -->
+  <div class="chapter-split">
+    <div class="text-chapter">
+      <span class="chapter-number">01.</span>
+      <h3>Contexte du projet</h3>
+      <p>
+        L’objectif était de concevoir une série de vidéos destinées à une campagne de recrutement pour le groupe Lhotellier, mettant en valeur les métiers, les valeurs humaines et l’environnement de travail du groupe.
+        <br><br>
+        La série complète comprend six vidéos, dont trois sont présentées ici.
+      </p>
+    </div>
+
+    <div class="video-chapter">
+      <div class="cartel-box cartel-inline">
+        <h2 class="cartel-title">À retenir</h2>
+        <ul class="cartel-list">
+          <li><span>Fil rouge</span> Une même émotion déclinée en 3 variations</li>
+          <li><span>Lecture</span> 1 → 2 → 3 (montée / bascule / résolution)</li>
+          <li><span>Format</span> Capsules courtes pensées pour un visionnage fluide</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================
+       00b — TEXTE ONLY (split)
+  ========================= -->
+  <div class="chapter-split">
+    <div class="text-chapter">
+      <span class="chapter-number">02.</span>
+      <h3>Organisation et production</h3>
+      <p>
+        Chaque vidéo a été pensée comme un portrait métier, avec une structure courte et efficace, adaptée aux formats de diffusion web et réseaux sociaux.
+        <br><br>
+        Le tournage a nécessité une préparation précise afin de s’adapter aux contraintes des lieux et de valoriser les collaborateurs du groupe dans leur environnement quotidien.
+      </p>
+    </div>
+
+    <div class="video-chapter">
+      <div class="cartel-box cartel-inline">
+        <h2 class="cartel-title">Structure</h2>
+        <ul class="cartel-list">
+          <li><span>Capsule 01</span> Installer le contexte + la promesse visuelle</li>
+          <li><span>Capsule 02</span> Déformer / accélérer / contraster</li>
+          <li><span>Capsule 03</span> Conclure + laisser une image finale forte</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================
+       01 — VIDEO 1
+  ========================= -->
+<div class="chapter-split">
+
+  <div class="video-chapter">
+    <div class="video-frame video-short">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/vGsctNLL5h4?playsinline=1&rel=0&modestbranding=1"
+        title="Capsule 01 — Short"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">Vidéo 01 - Chef de chantier</div>
+  </div>
+
+
+<div class="text-chapter">
+    <span class="chapter-number">03.</span>
+    <h3>Djilali - Chef de chantier</h3>
+    <p>Cette première vidéo met en avant le métier de chef de chantier au sein du groupe Lhotellier. Elle valorise le savoir-faire, l’engagement et la rigueur nécessaires au quotidien.</p>
+  </div>
+</div>
+
+
+  <!-- =========================
+       02 — VIDEO 2
+  ========================= -->
+<div class="chapter-split">
+  <div class="text-chapter">
+    <span class="chapter-number">04.</span>
+    <h3>Geoffrey - Qualité Sécurité Environnement</h3>
+    <p>Cette vidéo met en avant le métier de responsable Qualité Sécurité Environnement (QSE) au sein du groupe Lhotellier. Elle valorise l’engagement et la rigueur dans la mise en place de protocoles de sécurité.</p>
+  </div>
+
+  <div class="video-chapter">
+    <div class="video-frame video-short">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/eZ8rmQpBkzY?playsinline=1&rel=0&modestbranding=1"
+        title="Capsule 02 — Short"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">Vidéo 02 - Qualité Sécurité Environnement</div>
+  </div>
+</div>
+
+
+  <!-- =========================
+       03 — VIDEO 3
+  ========================= -->
+<div class="chapter-split">
+
+  <div class="video-chapter">
+    <div class="video-frame video-short">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/qZgqanxvhRs?playsinline=1&rel=0&modestbranding=1"
+        title="Capsule 03 — Short"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+        loading="lazy"></iframe>
+    </div>
+    <div class="video-caption">Vidéo 03 - Chef de chantier</div>
+  </div>
+
+    <div class="text-chapter">
+    <span class="chapter-number">05.</span>
+    <h3>Lillian - Chef de chantier</h3>
+    <p>Cette vidéo met en avant le métier de chef de chantier au sein du groupe Lhotellier. Elle valorise le savoir-faire, l’engagement et la rigueur nécessaires au quotidien.</p>
+  </div>
+</div>
+
+
+    </section>
+
+    <!-- =========================
+         NEXT
+    ========================= -->
+        <nav class="v2-next">
+            <div class="next-wrapper">
+                <span class="next-sub">Exposition suivante</span>
+                <a href="canigetakiss.html" class="next-title">Maison Sport santé</a>
+            </div>
+        </nav>
+
+  </main>
+
+  <div class="transition-overlay"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

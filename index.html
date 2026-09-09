@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Portfolio | Firmino Pedro </title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body class="page-index">
+
+    <div class="noise-overlay"></div>
+    
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <button id="theme-toggle" class="theme-btn" aria-label="Changer l'ambiance">
+    <span class="theme-text">Nuit</span>
+    <div class="theme-icon"></div>
+</button>
+
+    <div class="loader">
+        <div class="loader-text">Préparation de la toile...</div>
+    </div>
+
+    <nav class="exhibit-progress" aria-label="Progression de l'exposition">
+        <div class="exhibit-progress__top">
+            <span class="exhibit-progress__title">Exposition</span>
+            <span id="exhibitProgressLabel" class="exhibit-progress__label">Préambule</span>
+        </div>
+
+        <div
+            id="exhibitProgressBar"
+            class="exhibit-progress__bar"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0">
+            <span id="exhibitProgressFill" class="exhibit-progress__fill"></span>
+            <ol id="exhibitProgressSteps" class="exhibit-progress__steps" aria-hidden="false"></ol>
+        </div>
+    </nav>
+
+
+    <div class="wrapper">
+    
+        <section class="panel hero" data-progress-label="Préambule">
+            <h1 class="hero-title">
+                <span class="line">Créatif</span>
+                <span class="line indent">Visionnaire</span>
+                <span class="line">Digital</span>
+            </h1>
+            <p class="signature">Firmino Pedro — Portfolio 2026</p>
+            <div class="scroll-indicator">Découvrir l'exposition &rarr;</div>
+        </section>
+
+
+        <section class="panel bio" data-progress-label="Le Portrait">
+            <div class="bio-container">
+                <div class="bio-image-wrapper">
+                    <img src="images/moi.png" alt="Portrait de l'artiste" class="bio-img">
+                    <div class="bio-frame"></div>
+                </div>
+                <div class="bio-text">
+                    <h2 class="section-title">Le Portrait</h2>
+                    <p class="bio-desc">
+                        Derrière chaque pixel, il y a un rythme. Étudiant en MMI, je façonne des expériences où le <span class="highlight">mouvement</span> raconte, guide et marque.
+                        <br><br>
+                        J’anime des interfaces comme on compose une scène : cadrage, typographie, lumière et transitions. Mon but : transformer une navigation en sensation — fluide, précise, vivante.
+                    </p>
+                    <div class="bio-actions">
+  <a href="cv/CV Pedro.pdf" target="_blank" rel="noopener">
+    <button class="btn-paint btn-cv">Voir mon CV</button>
+  </a>
+</div>
+
+                    <div class="signature-mark">FP.</div>
+                </div>
+            </div>
+        </section>
+
+
+          <!-- =========================
+       <section class="panel about" data-progress-label="L'Esquisse">
+            <div class="frame-content">
+                <h2>L'Esquisse</h2>
+                <p>Je ne crée pas seulement des pages : je chorégraphie des parcours. Mon approche mêle design, narration et animation pour donner du relief aux idées — du premier croquis au dernier easing</p>
+                <div class="tags">
+                    <span>Motion</span><span>Video</span><span>Design</span>
+                </div>
+            </div>
+            <div class="splash-bg"></div>
+        </section>       ========================= -->
+
+
+
+        <section class="panel skills" data-progress-label="L'Atelier">
+            <div class="skills-content">
+                <h2 class="section-title center">L'Atelier</h2>
+                <p class="subtitle">Mes outils de création</p>
+                
+                <div class="skills-cloud">
+                    <div class="skill-item">HTML5</div>
+                    <div class="skill-item">CSS3</div>
+                    <div class="skill-item focus">After Effects</div>
+                    <div class="skill-item">JavaScript</div>
+                    <div class="skill-item focus">Premiere Pro</div>
+                    <div class="skill-item">Blender</div>
+                    <div class="skill-item focus">Photoshop</div>
+                    <div class="skill-item">Figma</div>
+                    <div class="skill-item focus">Illustrator</div>
+                    <div class="skill-item">Wordpress</div>
+                    <div class="skill-item">PHP</div>
+                    <div class="skill-item">MySql</div>
+                    <div class="skill-item">InDesign</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel project" data-progress-label="Oeuvre N°2">
+            <a class="painting-frame" href="canigetakiss.html">
+                <img src="images/tyler.jpg" alt="Projet 2">
+                <div class="frame-overlay"></div>
+            </a>
+            <div class="project-info">
+                <h3>Dernière Oeuvre</h3>
+                <p>Motion Design Musical</p>
+                <a href="canigetakiss.html"><button class="btn-paint">Voir le détail</button></a>
+            </div>
+        </section>
+
+        <section class="panel collection-link" data-progress-label="La Réserve">
+            <div class="collection-content">
+                <h2 class="hero-title hero-title--reserve">La Réserve</h2>
+                <p class="subtitle">Parcourir l’ensemble des projets.</p>
+                <a href="projets.html" class="circle-link">
+                    <span>Explorer</span>
+                    <svg viewBox="0 0 100 100" class="rotate-text">
+                        <path id="curve" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent"/>
+                        <text>
+                            <textPath xlink:href="#curve">
+                                Collection • Archives • Galerie •
+                            </textPath>
+                        </text>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+<section class="panel journey" data-progress-label="Le Parcours">
+    <div class="journey-content">
+        <h2 class="section-title center">Le Parcours</h2>
+        <p class="subtitle center">Formation</p>
+
+        <div class="museum-timeline">
+            <div class="museum-axis"></div>
+
+            <div class="museum-item bottom">
+                <div class="museum-dot"></div>
+                <div class="museum-stem"></div>
+                <div class="museum-card">
+                    <div class="m-content-wrap">
+                        <span class="m-date">2024</span>
+                        <span class="m-tag">Origine</span>
+                        <h3 class="m-title">Baccalauréat</h3>
+                        <p class="m-desc">Logique de programmation et culture numérique.</p>
+                        <span class="m-school">Lycée Blaise Pascal</span>
+                    </div>
+                    <div class="m-brand">
+                        <svg viewBox="0 0 100 100" class="m-ring">
+                            <path id="ring-bp" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="transparent"/>
+                            <text><textPath xlink:href="#ring-bp">Lycée Blaise Pascal • Lycée Blaise Pascal •</textPath></text>
+                        </svg>
+                        <div class="m-logo-center">
+                            <img src="images/bp.jpg" alt="Lycée Blaise Pascal">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="museum-item top">
+                <div class="museum-dot"></div>
+                <div class="museum-stem"></div>
+                <div class="museum-card">
+                    <div class="m-content-wrap">
+                        <span class="m-date">2024 — 2027</span>
+                        <span class="m-tag">Formation</span>
+                        <h3 class="m-title">BUT MMI</h3>
+                        <p class="m-desc">Parcours Création Numérique</p>
+                        <span class="m-school">IUT de Rouen</span>
+                    </div>
+                    <div class="m-brand">
+                        <svg viewBox="0 0 100 100" class="m-ring">
+                            <path id="ring-iut" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="transparent"/>
+                            <text><textPath xlink:href="#ring-iut">Université de Rouen • IUT Elbeuf •</textPath></text>
+                        </svg>
+                        <div class="m-logo-center">
+                            <img src="images/iut.png" alt="IUT de Rouen">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="museum-item bottom">
+                <div class="museum-dot"></div>
+                <div class="museum-stem"></div>
+                <div class="museum-card">
+                    <div class="m-content-wrap">
+                        <span class="m-date">2025</span>
+                        <span class="m-tag">Collaboration</span>
+                        <h3 class="m-title">Producteur</h3>
+                        <p class="m-desc">Réalisation d'Interview professionnelle avec la Maison Sport Santé d'Elbeuf.</p>
+                        <span class="m-school">Maison Sport Santé</span>
+                    </div>
+                    <div class="m-brand">
+                        <svg viewBox="0 0 100 100" class="m-ring">
+                            <path id="ring-mss" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="transparent"/>
+                            <text><textPath xlink:href="#ring-mss">Maison Sport Santé • Partenaire •</textPath></text>
+                        </svg>
+                        <div class="m-logo-center">
+                            <img src="images/logo MSS.png.jpg" alt="Maison Sport Santé">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="museum-item top">
+                <div class="museum-dot"></div>
+                <div class="museum-stem"></div>
+                <div class="museum-card">
+                    <div class="m-content-wrap">
+                        <span class="m-date">2025</span>
+                        <span class="m-tag">Collaboration</span>
+                        <h3 class="m-title">Producteur</h3>
+                        <p class="m-desc">Réalisation d'une série de vidéos pour le groupe L'hotellier.</p>
+                        <span class="m-school">Groupe L'hotellier</span>
+                    </div>
+                    <div class="m-brand">
+                        <svg viewBox="0 0 100 100" class="m-ring">
+                            <path id="ring-lhot" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="transparent"/>
+                            <text><textPath xlink:href="#ring-lhot">Groupe L'hotellier • Partenaire •</textPath></text>
+                        </svg>
+                        <div class="m-logo-center">
+                            <img src="images/logo lhot.jpg" alt="Groupe L'hotellier">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="museum-item bottom">
+                <div class="museum-dot"></div>
+                <div class="museum-stem"></div>
+                <div class="museum-card">
+                    <div class="m-content-wrap">
+                        <span class="m-date">2026 (+2 mois)</span>
+                        <span class="m-tag">Stage</span>
+                        <h3 class="m-title">Technicien Vidéo</h3>
+                        <p class="m-desc">Réalisation de fresques, Animation graphiques, Régie et +</p>
+                        <span class="m-school">France 3 Normandie</span>
+                    </div>
+                    <div class="m-brand">
+                        <svg viewBox="0 0 100 100" class="m-ring">
+                            <path id="ring-f3" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0" fill="transparent"/>
+                            <text><textPath xlink:href="#ring-f3">France 3 Normandie • Stage Pro •</textPath></text>
+                        </svg>
+                        <div class="m-logo-center">
+                            <img src="images/f3.svg" alt="France 3 Normandie">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> </div>
+</section>
+
+
+        <section class="panel contact" data-progress-label="Contact">
+            <div class="contact-form-wrapper">
+                <h2 class="section-title center">Contact</h2>
+                <p class="subtitle center">Vous pouvez prendre contact avec moi via ce formulaire.</p>
+                
+                <form class="art-form" action="https://formspree.io/f/meevybly" method="POST">
+    
+    <div class="input-group">
+        <input type="text" id="name" name="nom" required placeholder=" ">
+        <label for="name">Votre nom </label>
+        <span class="underline"></span>
+    </div>
+    
+    <div class="input-group">
+        <input type="email" id="email" name="email" required placeholder=" ">
+        <label for="email">E-mail</label>
+        <span class="underline"></span>
+    </div>
+
+    <div class="input-group">
+        <textarea id="message" name="message" required placeholder=" " rows="1"></textarea>
+        <label for="message">Votre idée...</label>
+        <span class="underline"></span>
+    </div>
+
+    <button type="submit" class="btn-paint large">Envoyer le message</button>
+</form>
+
+                <div class="socials-minimal">
+                    <a href="https://www.linkedin.com/in/pedro-firmino-764508344/">LinkedIn</a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
+</body>
+<div class="transition-overlay"></div>
+</html>
